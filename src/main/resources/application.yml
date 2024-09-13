@@ -12,7 +12,7 @@ spring:
           predicates:
             - Path=/api/v1/**
 
-        - id: spring-6-reactive-Webflux
+        - id: spring-6-reactive-resource-server
           uri: http://localhost:8082
           predicates:
             - Path=/api/v2/**
@@ -21,7 +21,20 @@ spring:
           uri: http://localhost:8083
           predicates:
             - Path=/api/v3/**
+management:
+  endpoint:
+    health:
+      probes:
+        enabled: true
+  health:
+    readinessstate:
+      enabled: true
+    livenessstate:
+      enabled: true
 
+logging:
+  level:
+    org.zalando.logbook: trace
 # for debugging, not in production mode.
 #      httpserver:
 #        wiretap: true

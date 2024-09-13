@@ -1,0 +1,29 @@
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://auth-server:9000
+#          注意: 上面的auth-server是我们在run auth server时定义的container name
+  cloud:
+    gateway:
+      routes:
+        - id: spring-6-rest-mvc
+          uri: http://rest-mvc:8080
+          predicates:
+            - Path=/api/v1/**
+
+        - id: spring-6-reactive-Webflux
+          uri: http://reactive:8080
+          predicates:
+            - Path=/api/v2/**
+
+        - id: spring-6-reactive-Webfluxfn
+          uri: http://reactive-mongo:8080
+          predicates:
+            - Path=/api/v3/**
+
+        - id: spring-6-auth-server
+          uri: http://auth-server:9000
+          predicates:
+            - Path=/oauth2/**
